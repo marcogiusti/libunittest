@@ -66,6 +66,19 @@ test_skip(TESTARGS, void *usrptr)
 }
 
 static void
+_test_no_assertions(TESTARGS, void *usrptr)
+{ }
+
+static void
+test_no_assertions(TESTARGS, void *usrptr)
+{
+	struct test_result *r;
+
+	r = _run_tests(usrptr, _test_no_assertions, NULL, NULL);
+	ASSERT_EQUAL(r->was_successful(r), 0, NULL);
+}
+
+static void
 _setup(struct test_suite *suite)
 {
 	struct _usrdata *usrdata;
@@ -113,6 +126,7 @@ load_test_suite(struct test_loader *loader)
 	suite->add_test(suite, test_case_new(test_success));
 	suite->add_test(suite, test_case_new(test_fail));
 	suite->add_test(suite, test_case_new(test_skip));
+	suite->add_test(suite, test_case_new(test_no_assertions));
 	suite->setup = _setup;
 	suite->teardown = _teardown;
 	return suite;
