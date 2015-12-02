@@ -32,7 +32,7 @@ test_success(TESTARGS, void *usrptr)
 	struct test_result *r;
 
 	r = _run_tests(usrptr, _test_success, NULL, NULL);
-	ASSERT_EQUAL(r->was_successful(r), 0, "");
+	ASSERT_EQUAL(r->was_successful(r), 0, "0: success exit status");
 }
 
 static void
@@ -47,7 +47,7 @@ test_fail(TESTARGS, void *usrptr)
 	struct test_result *r;
 
 	r = _run_tests(usrptr, _test_fail, NULL, NULL);
-	ASSERT_EQUAL(r->was_successful(r), 1, "");
+	ASSERT_EQUAL(r->was_successful(r), 1, "1: fail exit status");
 }
 
 static void
@@ -62,7 +62,7 @@ test_skip(TESTARGS, void *usrptr)
 	struct test_result *r;
 
 	r = _run_tests(usrptr, _test_skip, "test skip", NULL);
-	ASSERT_EQUAL(r->was_successful(r), 77, "");
+	ASSERT_EQUAL(r->was_successful(r), 77, "77: there are skipped tests");
 }
 
 static void
@@ -75,7 +75,7 @@ test_no_assertions(TESTARGS, void *usrptr)
 	struct test_result *r;
 
 	r = _run_tests(usrptr, _test_no_assertions, NULL, NULL);
-	ASSERT_EQUAL(r->was_successful(r), 0, NULL);
+	ASSERT_EQUAL(r->was_successful(r), 0, "0: no test, no fun");
 }
 
 static void
