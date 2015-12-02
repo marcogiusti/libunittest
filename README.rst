@@ -8,8 +8,6 @@ flexibility.
 Installing
 ==========
 
-.. highlight:: sh
-
 The library uses the autotools to install itself. If you get the code
 from github, run autoreconf::
 
@@ -34,10 +32,7 @@ Of course the library has itself a test suite::
 Tutorial
 ========
 
-The following is the classic hello world example:
-
-.. code-block:: c
-   :linenos:
+The following is the classic hello world example::
 
    #include <unittest.h>
 
@@ -69,16 +64,14 @@ The following is the classic hello world example:
 Line 1: the header ``unittest.h`` import all the types and the
 functions.
 
-.. add a link to the documentation for the header
-
 Lines 20-26: standard ``main()`` entry point. It invokes the
 ``test_main3()`` function, a short cut that initializes the test system,
 runs the tests and return a suitable exit status value. Here we
 explicitelly pass the function arguments to ``test_main3()``.
 
 Lines 4-5: the ``test_success()`` function is the test case. The first
-argument *must* be the :c:macro:`TESTARGS` marco. This, actually they
-are more than one, argument is used by the :c:macro:`SUCCESS` macro and,
+argument *must* be the ``TESTARGS`` marco. This, actually they
+are more than one, argument is used by the ``SUCCESS`` macro and,
 more generally, by all ``ASSERT_*`` macros. The second argument is a
 ``void *`` and the user could use it to pass arbitrary data the the test
 case. More on this later.
@@ -88,25 +81,24 @@ case. More on this later.
    It declares two variables whose names should not clash with your
    variables' names.
 
-Line 7: the :c:macro:`SUCCESS` is an assertion that always succeed. It
-accept a ``const char *`` as argument that is the description of the
-test.
+Line 7: the ``SUCCESS`` is an assertion that always succeed. It accept a
+``const char *`` as argument that is the description of the test.
 
 Lines 10-11: the ``load_test_suite()`` function is a global visible
-(i.e.  non ``static``) function. It accepts a :c:type:`test_loader` and
-returns a :c:type:`test_suite`. The default :c:type:`test_loader` invoke
+(i.e.  non ``static``) function. It accepts a ``test_loader`` and
+returns a ``test_suite``. The default ``test_loader`` invoke
 automatically this function to load the test methods.
 
-Line 15: create a :c:type:`test_suite`.
+Line 15: create a ``test_suite``.
 
-Line 16: add a :c:type:`test_case` to the suite.
+Line 16: add a ``test_case`` to the suite.
 
 Compile the code with the following comand::
 
    gcc -ldl -lunittest -rdynamic helloworld.c
 
 The ``unittest`` is the testing library and ``dl`` is required to load
-the dinamic libraries. The standard :c:type:`test_loader` uses the main
+the dinamic libraries. The standard ``test_loader`` uses the main
 program as a library and try load it to search for the
 ``load_test_suite()`` function. ``-rdynamic`` is required to allow
 backtraces from within the program.
