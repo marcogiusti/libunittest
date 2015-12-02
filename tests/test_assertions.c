@@ -79,6 +79,21 @@ test_no_assertions(TESTARGS, void *usrptr)
 }
 
 static void
+_test_todo(TESTARGS, void *usrptr)
+{
+	FAIL("this test should be fixed");
+}
+
+static void
+test_todo(TESTARGS, void *usrptr)
+{
+	struct test_result *r;
+
+	r = _run_tests(usrptr, _test_todo, NULL, "test todo");
+	ASSERT_EQUAL(r->was_successful(r), 0, "A failure is expected");
+}
+
+static void
 _setup(struct test_suite *suite)
 {
 	struct _usrdata *usrdata;
@@ -127,6 +142,7 @@ load_test_suite(struct test_loader *loader)
 	suite->add_test(suite, test_case_new(test_fail));
 	suite->add_test(suite, test_case_new(test_skip));
 	suite->add_test(suite, test_case_new(test_no_assertions));
+	suite->add_test(suite, test_case_new(test_todo));
 	suite->setup = _setup;
 	suite->teardown = _teardown;
 	return suite;
