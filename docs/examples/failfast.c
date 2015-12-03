@@ -1,3 +1,18 @@
+/**
+ * Be sure you read the helloworld.c, fail.c and firstfail.c examples.
+ *
+ * This example shows how the failfast options works, here passed directly to
+ * `test_main3()` as a -f flag. There are two tests, the first one fails, all
+ * the others are skipped and the program terminate.
+ *
+ * Here is the output:
+ *
+ *		1..2
+ *		not ok test_fail # hello fail
+ *
+ * As you can see only one of the two tests are executed.
+ */
+
 #include <unittest.h>
 
 

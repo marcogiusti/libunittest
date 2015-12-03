@@ -1,3 +1,10 @@
+/**
+ * This is the natuaral evolution of the helloworld.c example. Be sure you read
+ * it. This second example simply add a second test that, alas, fails.
+ * Interesting here is the exit status of the program: 1. This indicate a
+ * generic failure.
+ */
+
 #include <unittest.h>
 
 

@@ -1,3 +1,10 @@
+/**
+ * Be sure you read the helloworld.c and fail.c examples. This example is
+ * different in that two tests are performed in the same test case: the first
+ * fails and hence the second one is not executed. Everytime an assertion
+ * fails, the test case is left.
+ */
+
 #include <unittest.h>
 
 
