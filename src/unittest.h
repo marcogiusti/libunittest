@@ -55,6 +55,10 @@ struct test_suite;
 	 * @note The result does *not* own the test and should not try to free it.
 	 */ \
 	void (*add_xfailure)(struct test_result *result, struct test_case *test); \
+	/** Add a test to the list of errors.
+	 * @note The result does *not* own the test and should not try to free it.
+	 */ \
+	void (*add_error)(struct test_result *result, struct test_case *test); \
 	/** Return a `int` suitable as parameter to exit(). */ \
 	int (*was_successful)(struct test_result* result);
 

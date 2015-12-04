@@ -13,6 +13,7 @@ struct tap_result {
 	struct list *successes;
 	struct list *xsuccesses;
 	struct list *skipped;
+	struct list *errors;
 };
 
 static void
@@ -94,6 +95,19 @@ tap_result_add_xfailure(struct test_result *result, struct test_case *test)
 			test->todo);
 }
 
+static void
+tap_result_add_error(struct test_result *result, struct test_case *test)
+{
+	struct list **errors = &((struct tap_result *) result)->errors;
+
+	assert(test->name != NULL);
+	assert(test->msg != NULL);
+	*errors = list_append(*errors, test);
+	if (result->stream != NULL)
+		fprintf(result->stream, "not ok %s # ERROR %s\n", test->name,
+			test->msg);
+}
+
 static int
 tap_result_was_successful(struct test_result *_result)
 {
@@ -135,6 +149,7 @@ tap_result_new(bool failfast, FILE *stream)
 	tapresult->successes = NULL;
 	tapresult->xsuccesses = NULL;
 	tapresult->skipped = NULL;
+	tapresult->errors = NULL;
 	result->shouldstop = false;
 	result->failfast = failfast;
 	result->stream = stream;
@@ -146,6 +161,7 @@ tap_result_new(bool failfast, FILE *stream)
 	result->add_xsuccess = tap_result_add_xsuccess;
 	result->add_failure = tap_result_add_failure;
 	result->add_xfailure = tap_result_add_xfailure;
+	result->add_error = tap_result_add_error;
 	result->was_successful = tap_result_was_successful;
 	return result;
 }

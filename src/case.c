@@ -15,7 +15,8 @@ enum assert_result {
 	SUCCESS,
 	FAILURE,
 	XFAILURE,
-	XSUCCESS
+	XSUCCESS,
+	ERROR
 };
 
 static void
@@ -59,6 +60,8 @@ test_case_run(struct test_case *test, struct test_suite *suite,
 		case XFAILURE:
 			result->add_xfailure(result, test);
 			break;
+		case ERROR:
+			result->add_error(result, test);
 		default:
 			abort();  /* programming error */
 	}
