@@ -190,9 +190,9 @@ struct test_case *test_case_new_impl(const char *name, const char *skip,
 	void (*free)(struct test_suite *suite); \
 	/** Called to set up the preconditions that the test needs.
 	 * @note It must not fail. */ \
-	void (*setup)(struct test_suite *suite, struct test_result *result); \
+	void (*setup)(struct test_suite *suite); \
 	/** Tear down the test fixture. @note It must not fail. */ \
-	void (*teardown)(struct test_suite *suite, struct test_result *result); \
+	void (*teardown)(struct test_suite *suite); \
 	/** Add a test to the current suite. */ \
 	void (*add_test)(struct test_suite *suite, struct test_case *test); \
 	/** Add a child suite to the current suite. */ \
