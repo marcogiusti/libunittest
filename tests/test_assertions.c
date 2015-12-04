@@ -94,7 +94,7 @@ test_todo(TESTARGS, void *usrptr)
 }
 
 static void
-_setup(struct test_suite *suite)
+_setup(struct test_suite *suite, struct test_result *result)
 {
 	struct _usrdata *usrdata;
 
@@ -105,7 +105,7 @@ _setup(struct test_suite *suite)
 }
 
 static void
-_teardown(struct test_suite *suite)
+_teardown(struct test_suite *suite, struct test_result *result)
 {
 	struct _usrdata *usrdata = (struct _usrdata *) suite->usrptr;
 

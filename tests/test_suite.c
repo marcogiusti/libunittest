@@ -187,13 +187,13 @@ test_skip_suite(TESTARGS, void *usrptr)
 }
 
 static void
-_setup(struct test_suite *suite)
+_setup(struct test_suite *suite, struct test_result *result)
 {
 	suite->usrptr = test_suite_new();
 }
 
 static void
-_teardown(struct test_suite *suite)
+_teardown(struct test_suite *suite, struct test_result *result)
 {
 	struct test_suite *s = (struct test_suite *) suite->usrptr;
 	s->free(s);

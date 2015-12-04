@@ -41,7 +41,7 @@ test_case_run(struct test_case *test, struct test_suite *suite,
 		return;
 	}
 	if (suite->setup != NULL)
-		suite->setup(suite);
+		suite->setup(suite, result);
 	((struct test_case_impl *) test)->jmpbuffer = &jmpbuffer;
 	switch (setjmp(jmpbuffer)) {
 		case SUCCESS:
@@ -64,7 +64,7 @@ test_case_run(struct test_case *test, struct test_suite *suite,
 	}
 	((struct test_case_impl *) test)->jmpbuffer = NULL;
 	if (suite->teardown != NULL)
-		suite->teardown(suite);
+		suite->teardown(suite, result);
 	if (result->stop_test != NULL)
 		result->stop_test(result, test);
 }
