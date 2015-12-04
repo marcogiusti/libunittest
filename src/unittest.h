@@ -121,7 +121,17 @@ struct test_result *tap_result_new(bool failfast, FILE *stream);
 	 */ \
 	void (*assert_impl)(struct test_case *test, struct test_result *result, \
 			bool pass, const char *condition, const char *msg, \
-			const char *filename, unsigned int lineno);
+			const char *filename, unsigned int lineno); \
+	/**
+	 * Add an irrecoverable error.
+	 * Don't use this function directly but ERROR macro instead.
+	 * @param result The result to update.
+	 * @param msg The error message.
+	 * @param filename The file where the test is located.
+	 * @param lineno the line number in the file.
+	 */ \
+	void (*error)(struct test_case *test, struct test_result *result, \
+			const char *msg, const char *filename, unsigned int lineno);
 
 /**
  * Represent the smallest unit of testing.
@@ -349,6 +359,14 @@ int run_tests(struct test_runner *runner, struct test_loader *loader, int argc,
 			_RESULTARG, \
 			false, \
 			"FAIL", \
+			msg, \
+			__FILE__, \
+			__LINE__); \
+} while(0)
+
+#define ERROR(msg) do { \
+	_TESTARG->error(_TESTARG, \
+			_RESULTARG, \
 			msg, \
 			__FILE__, \
 			__LINE__); \

@@ -16,7 +16,7 @@ enum assert_result {
 	FAILURE,
 	XFAILURE,
 	XSUCCESS,
-	ERROR
+	_ERROR
 };
 
 static void
@@ -60,7 +60,7 @@ test_case_run(struct test_case *test, struct test_suite *suite,
 		case XFAILURE:
 			result->add_xfailure(result, test);
 			break;
-		case ERROR:
+		case _ERROR:
 			result->add_error(result, test);
 		default:
 			abort();  /* programming error */
@@ -89,6 +89,17 @@ test_case_assert(struct test_case *test, struct test_result *result, bool pass,
 	}
 }
 
+static void
+test_case_error(struct test_case *test, struct test_result *result,
+		const char *msg, const char *filename, unsigned int lineno)
+{
+	assert(((struct test_case_impl *) test)->jmpbuffer != NULL);
+	test->msg = msg;
+	test->filename = filename;
+	test->lineno = lineno;
+	longjmp(*((struct test_case_impl *) test)->jmpbuffer, _ERROR);
+}
+
 struct test_case *
 test_case_new_impl(const char *name, const char *skip, const char *todo,
 		void (*func)(struct test_case *, struct test_result *, void *))
@@ -104,5 +115,6 @@ test_case_new_impl(const char *name, const char *skip, const char *todo,
 	test->func = func;
 	test->run = test_case_run;
 	test->assert_impl = test_case_assert;
+	test->error = test_case_error;
 	return test;
 }
