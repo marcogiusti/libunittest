@@ -1,5 +1,7 @@
 language: c
-install: autoreconf --install
+install: 
+    - mkdir m4
+    - autoreconf --install
 compiler:
     - clang
     - gcc
