@@ -1,6 +1,6 @@
 language: c
 install: 
-    - aclocal --install
+    - mkdir m4
     - autoreconf --install
 compiler:
     - clang
