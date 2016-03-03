@@ -1,5 +1,7 @@
 language: c
-install: autoreconf --install
+install: 
+    - aclocal --install
+    - autoreconf --install
 compiler:
     - clang
     - gcc
