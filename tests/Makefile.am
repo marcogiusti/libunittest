@@ -1,7 +1,7 @@
 LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) $(top_srcdir)/tap-driver.sh
 AM_CPPFLAGS = -I$(top_srcdir)/src
 AM_CFLAGS = -Wall -Werror
-AM_LDFLAGS = -ldl -rdynamic
+AM_LDFLAGS = -Wl,--no-as-needed -ldl -rdynamic
 LDADD = $(top_builddir)/src/libunittest.la
 
 check_PROGRAMS = test_assertions test_suite
